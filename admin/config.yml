@@ -1,0 +1,151 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+
+  # ── SITE SETTINGS ────────────────────────────────────────────────────────
+  - name: "settings"
+    label: "Site Settings"
+    files:
+
+      - name: "contact"
+        label: "Contact Details"
+        file: "_data/contact.json"
+        fields:
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Instagram handle", name: "instagram", widget: "string" }
+          - { label: "LinkedIn URL", name: "linkedin", widget: "string" }
+
+      - name: "homepage"
+        label: "Homepage"
+        file: "_data/homepage.json"
+        fields:
+          - { label: "Hero video Vimeo ID", name: "vimeo_id", widget: "string", required: false, hint: "Numbers only e.g. 123456789" }
+          - { label: "Profile photo", name: "profile_photo", widget: "image", required: false }
+          - { label: "About text", name: "about", widget: "text" }
+
+      - name: "commercial_intro"
+        label: "Commercial Page — Intro & Showreel"
+        file: "_data/commercial.json"
+        fields:
+          - { label: "Showreel Vimeo ID", name: "showreel_vimeo", widget: "string", required: false }
+          - { label: "Intro text", name: "intro", widget: "text" }
+          - { label: "Current company", name: "current", widget: "string" }
+          - { label: "Markets", name: "markets", widget: "string" }
+          - { label: "Availability", name: "availability", widget: "string" }
+
+      - name: "art_intro"
+        label: "Art & Film Page — Intro & Showreel"
+        file: "_data/art.json"
+        fields:
+          - { label: "Showreel Vimeo ID", name: "showreel_vimeo", widget: "string", required: false }
+          - { label: "Intro text", name: "intro", widget: "text" }
+
+  # ── CV ───────────────────────────────────────────────────────────────────
+  - name: "cv"
+    label: "CV"
+    files:
+      - name: "cv_content"
+        label: "CV Content"
+        file: "_data/cv.json"
+        fields:
+          - { label: "About / Bio", name: "about", widget: "text" }
+          - label: "Experience"
+            name: "jobs"
+            widget: "list"
+            fields:
+              - { label: "Dates", name: "dates", widget: "string" }
+              - { label: "Company", name: "company", widget: "string" }
+              - { label: "Location", name: "location", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Bullet points"
+                name: "bullets"
+                widget: "list"
+                field: { label: "Bullet", name: "bullet", widget: "string" }
+          - label: "Education"
+            name: "education"
+            widget: "list"
+            fields:
+              - { label: "Dates", name: "dates", widget: "string" }
+              - { label: "Degree", name: "degree", widget: "string" }
+              - { label: "Institution", name: "institution", widget: "string" }
+          - label: "Skills"
+            name: "skills"
+            widget: "list"
+            fields:
+              - { label: "Group name", name: "group", widget: "string" }
+              - { label: "Skills (comma separated)", name: "items", widget: "string" }
+
+  # ── COMMERCIAL PROJECTS ──────────────────────────────────────────────────
+  - name: "commercial"
+    label: "Commercial Projects"
+    folder: "_projects/commercial"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Client", name: "client", widget: "string" }
+      - { label: "Type", name: "type", widget: "string", hint: "e.g. Brand Campaign" }
+      - { label: "Year", name: "year", widget: "string" }
+      - { label: "Your role", name: "role", widget: "string" }
+      - { label: "Thumbnail", name: "thumbnail", widget: "image", required: false }
+      - { label: "Vimeo ID", name: "vimeo", widget: "string", required: false }
+      - { label: "YouTube ID", name: "youtube", widget: "string", required: false }
+      - label: "Stats (shown in popup e.g. 8 Markets)"
+        name: "stats"
+        widget: "list"
+        field: { label: "Stat", name: "stat", widget: "string" }
+      - { label: "Short description (on card)", name: "description", widget: "string" }
+      - { label: "Write-up (shown in popup)", name: "writeup", widget: "text" }
+      - { label: "Show on All Work page", name: "all_work", widget: "boolean", default: true }
+      - { label: "Order (lower number = first)", name: "order", widget: "number", default: 10 }
+
+  # ── FILMS ────────────────────────────────────────────────────────────────
+  - name: "films"
+    label: "Films"
+    folder: "_projects/films"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Type", name: "type", widget: "string", hint: "e.g. Short Film · 14 min" }
+      - { label: "Year", name: "year", widget: "string" }
+      - { label: "Your role", name: "role", widget: "string" }
+      - { label: "Format", name: "format", widget: "string" }
+      - { label: "Festival / Screenings", name: "festival", widget: "string", required: false }
+      - { label: "Director", name: "director", widget: "string", required: false }
+      - { label: "DP / Cinematographer", name: "dp", widget: "string", required: false }
+      - { label: "Runtime", name: "runtime", widget: "string", required: false }
+      - { label: "Camera", name: "camera", widget: "string", required: false }
+      - { label: "Cover image", name: "cover", widget: "image", required: false }
+      - label: "Film stills"
+        name: "stills"
+        widget: "list"
+        field: { label: "Still", name: "still", widget: "image" }
+      - { label: "Vimeo ID", name: "vimeo", widget: "string", required: false }
+      - { label: "YouTube ID", name: "youtube", widget: "string", required: false }
+      - label: "Write-up (each entry = one paragraph)"
+        name: "writeup"
+        widget: "list"
+        field: { label: "Paragraph", name: "paragraph", widget: "text" }
+      - { label: "Show on All Work page", name: "all_work", widget: "boolean", default: true }
+      - { label: "Order (lower number = first)", name: "order", widget: "number", default: 10 }
+
+  # ── ALL WORK ARCHIVE ─────────────────────────────────────────────────────
+  - name: "all_work"
+    label: "All Work — Archive"
+    folder: "_projects/archive"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Client / Context", name: "client", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["commercial", "film", "photography", "design"] }
+      - { label: "Year", name: "year", widget: "string" }
+      - { label: "Your role", name: "role", widget: "string" }
+      - { label: "Link (optional)", name: "link", widget: "string", required: false }
