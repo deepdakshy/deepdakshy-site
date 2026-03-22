@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Work — Deep Dakshy | Complete Archive</title>
+  <meta name="description" content="Complete archive of work by Deep Dakshy — commercial campaigns, short films, documentary photography, graphic design. Berlin filmmaker and producer."/>
+  <link rel="canonical" href="https://www.deepdakshy.com/all-work.html"/>
+  <meta property="og:title" content="All Work — Deep Dakshy"/>
+  <meta property="og:url" content="https://www.deepdakshy.com/all-work.html"/>
+  <link rel="stylesheet" href="css/style-red.css"/>
+  <style>
+    /* Archive-specific styles */
+    .archive-intro {
+      padding: 48px 40px 40px;
+      border-bottom: 1px solid var(--border);
+      max-width: 640px;
+    }
+    .archive-intro p {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 2;
+      margin-top: 16px;
+    }
+
+    /* Filter tabs */
+    .archive-filters {
+      display: flex;
+      gap: 0;
+      padding: 0 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 60px;
+      z-index: 10;
+      background: rgba(8,8,8,.95);
+      backdrop-filter: blur(12px);
+    }
+    .archive-filter {
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 16px 0;
+      margin-right: 28px;
+      border-bottom: 1px solid transparent;
+      transition: color .2s, border-color .2s;
+      cursor: none;
+    }
+    .archive-filter:hover { color: var(--text); }
+    .archive-filter.active { color: var(--white); border-bottom-color: var(--accent); }
+
+    /* Archive list */
+    .archive-list {
+      border-top: 1px solid var(--border);
+    }
+
+    .archive-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 200px 120px 80px;
+      gap: 24px;
+      align-items: center;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      transition: background .2s;
+      cursor: none;
+      position: relative;
+    }
+    .archive-row:hover { background: var(--surface); }
+    .archive-row[data-vimeo]:hover,
+    .archive-row[data-youtube]:hover { cursor: none; }
+
+    .archive-year {
+      font-size: .62rem;
+      letter-spacing: .1em;
+      color: var(--dim);
+      font-variant-numeric: tabular-nums;
+    }
+    .archive-title {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      color: var(--bright);
+      line-height: 1.1;
+      transition: color .2s;
+    }
+    .archive-row:hover .archive-title { color: var(--white); }
+    .archive-client {
+      font-size: .62rem;
+      letter-spacing: .1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .archive-type {
+      font-size: .58rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .archive-action {
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: right;
+      transition: color .2s;
+    }
+    .archive-row:hover .archive-action { color: var(--accent); }
+
+    /* Section headings within list */
+    .archive-section-head {
+      padding: 32px 40px 12px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .archive-section-head h3 {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: 1.6rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--bright);
+    }
+    .archive-section-head span {
+      font-size: .58rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* Hidden rows for filter */
+    .archive-row.hidden { display: none; }
+
+    @media (max-width: 900px) {
+      .archive-intro { padding: 40px 20px; }
+      .archive-filters { padding: 0 20px; }
+      .archive-section-head { padding: 28px 20px 12px; }
+      .archive-row {
+        grid-template-columns: 60px 1fr 80px;
+        gap: 12px;
+        padding: 16px 20px;
+      }
+      .archive-client { display: none; }
+      .archive-type { display: none; }
+      .archive-action { font-size: .54rem; }
+    }
+  </style>
+</head>
+<body class="page">
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Deep Dakshy</a>
+  <ul class="nav-links">
+    <li><a href="commercial.html">Commercial</a></li>
+    <li><a href="art.html">Art & Film</a></li>
+    <li><a href="all-work.html">All Work</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header reveal">
+  <h1>All<br>Work</h1>
+  <div class="page-header-right">
+    Everything. In one place.<br>
+    <span style="color:var(--dim)" id="total-count"></span>
+  </div>
+</div>
+
+<!-- Intro -->
+<div class="archive-intro reveal">
+  <p class="eyebrow">Archive</p>
+  <p>
+    The complete record — commercial campaigns, independent films, documentary photography,
+    editorial and graphic design work. Early career was about volume: learning fast, doing
+    everything, building range. The curated pages show where things are headed now.
+  </p>
+</div>
+
+<!-- Filters -->
+<div class="archive-filters">
+  <button class="archive-filter active" data-filter="all">All</button>
+  <button class="archive-filter" data-filter="commercial">Commercial</button>
+  <button class="archive-filter" data-filter="film">Film</button>
+  <button class="archive-filter" data-filter="photography">Photography</button>
+  <button class="archive-filter" data-filter="design">Design</button>
+</div>
+
+<!-- Archive list -->
+<div class="archive-list" id="archive-list">
+
+  <!-- ══════ COMMERCIAL ══════ -->
+  <div class="archive-section-head" data-section="commercial">
+    <h3>Commercial</h3>
+    <span id="commercial-section-count"></span>
+  </div>
+
+  <!--
+    ★ HOW TO ADD ROWS:
+    - data-category: "commercial" / "film" / "photography" / "design"
+    - data-vimeo or data-youtube: video ID — clicking opens modal
+    - Leave blank if no video to show
+    - Copy any .archive-row block and update content
+  -->
+
+  <div class="archive-row" data-category="commercial" data-vimeo="">
+    <span class="archive-year">2024</span>
+    <span class="archive-title">Multi-Market European Campaign</span>
+    <span class="archive-client">Babbel</span>
+    <span class="archive-type">Brand Campaign</span>
+    <span class="archive-action">▶ Watch</span>
+  </div>
+
+  <div class="archive-row" data-category="commercial" data-vimeo="">
+    <span class="archive-year">2024</span>
+    <span class="archive-title">Social Series 2024</span>
+    <span class="archive-client">Babbel</span>
+    <span class="archive-type">Paid Social</span>
+    <span class="archive-action">▶ Watch</span>
+  </div>
+
+  <div class="archive-row" data-category="commercial" data-vimeo="">
+    <span class="archive-year">2023</span>
+    <span class="archive-title">100+ Asset Delivery Pipeline</span>
+    <span class="archive-client">Babbel</span>
+    <span class="archive-type">In-House Production</span>
+    <span class="archive-action">▶ Watch</span>
+  </div>
+
+  <div class="archive-row" data-category="commercial" data-vimeo="">
+    <span class="archive-year">2020</span>
+    <span class="archive-title">Original Series Content</span>
+    <span class="archive-client">Hoichoi</span>
+    <span class="archive-type">Platform Content</span>
+    <span class="archive-action">▶ Watch</span>
+  </div>
+
+  <div class="archive-row" data-category="commercial" data-vimeo="">
+    <span class="archive-year">2019</span>
+    <span class="archive-title">Web Series — Season 2</span>
+    <span class="archive-client">Hoichoi</span>
+    <span class="archive-type">Platform Content</span>
+    <span class="archive-action">▶ Watch</span>
+  </div>
+
+  <div class="archive-row" data-category="commercial" data-vimeo="">
+    <span class="archive-year">2017</span>
+    <span class="archive-title">Viral Formats Vol. 3</span>
+    <span class="archive-client">TVF</span>
+    <span class="archive-type">Video Production</span>
+    <span class="archive-action">▶ Watch</span>
+  </div>
+
+  <div class="archive-row" data-category="commercial" data-vimeo="">
+    <span class="archive-year">2016</span>
+    <span class="archive-title">Viral Formats Vol. 2</span>
+    <span class="archive-client">TVF</span>
+    <span class="archive-type">Video Production</span>
+    <span class="archive-action">▶ Watch</span>
+  </div>
+
+  <div class="archive-row" data-category="commercial" data-vimeo="">
+    <span class="archive-year">2015</span>
+    <span class="archive-title">Viral Formats Vol. 1</span>
+    <span class="archive-client">TVF</span>
+    <span class="archive-type">Video Production</span>
+    <span class="archive-action">▶ Watch</span>
+  </div>
+
+  <div class="archive-row" data-category="commercial">
+    <span class="archive-year">2015</span>
+    <span class="archive-title">Visual Identities — 8 clients</span>
+    <span class="archive-client">Studio Red</span>
+    <span class="archive-type">Brand Identity</span>
+    <span class="archive-action">View</span>
+  </div>
+
+  <!-- ★ ADD MORE COMMERCIAL ROWS HERE -->
+
+  <!-- ══════ FILM ══════ -->
+  <div class="archive-section-head" data-section="film">
+    <h3>Film</h3>
+    <span id="film-section-count"></span>
+  </div>
+
+  <div class="archive-row" data-category="film" data-art="ek-raat">
+    <span class="archive-year">2022</span>
+    <span class="archive-title">Ek Raat Ki Baat</span>
+    <span class="archive-client">Director · DP</span>
+    <span class="archive-type">Short Film</span>
+    <span class="archive-action">Open</span>
+  </div>
+
+  <div class="archive-row" data-category="film" data-art="cartographer">
+    <span class="archive-year">2021</span>
+    <span class="archive-title">The Cartographer's Wife</span>
+    <span class="archive-client">Director · DP</span>
+    <span class="archive-type">Short Film</span>
+    <span class="archive-action">Open</span>
+  </div>
+
+  <div class="archive-row" data-category="film" data-art="departure">
+    <span class="archive-year">2020</span>
+    <span class="archive-title">Departure</span>
+    <span class="archive-client">Cinematographer</span>
+    <span class="archive-type">Documentary</span>
+    <span class="archive-action">Open</span>
+  </div>
+
+  <div class="archive-row" data-category="film" data-art="saltwater">
+    <span class="archive-year">2019</span>
+    <span class="archive-title">Saltwater</span>
+    <span class="archive-client">Director</span>
+    <span class="archive-type">Short Film</span>
+    <span class="archive-action">Open</span>
+  </div>
+
+  <!-- ★ ADD MORE FILM ROWS HERE -->
+
+  <!-- ══════ PHOTOGRAPHY ══════ -->
+  <div class="archive-section-head" data-section="photography">
+    <h3>Photography</h3>
+    <span id="photo-section-count"></span>
+  </div>
+
+  <div class="archive-row" data-category="photography">
+    <span class="archive-year">2016–</span>
+    <span class="archive-title">Urban Migration</span>
+    <span class="archive-client">Personal</span>
+    <span class="archive-type">Documentary</span>
+    <span class="archive-action">View</span>
+  </div>
+
+  <div class="archive-row" data-category="photography">
+    <span class="archive-year">2022–</span>
+    <span class="archive-title">Berlin Streets</span>
+    <span class="archive-client">Personal</span>
+    <span class="archive-type">Street Photography</span>
+    <span class="archive-action">View</span>
+  </div>
+
+  <div class="archive-row" data-category="photography">
+    <span class="archive-year">2016–20</span>
+    <span class="archive-title">Kolkata Portraits</span>
+    <span class="archive-client">Personal</span>
+    <span class="archive-type">Portrait</span>
+    <span class="archive-action">View</span>
+  </div>
+
+  <!-- ★ ADD MORE PHOTOGRAPHY ROWS HERE -->
+
+  <!-- ══════ DESIGN ══════ -->
+  <div class="archive-section-head" data-section="design">
+    <h3>Design & Graphics</h3>
+    <span id="design-section-count"></span>
+  </div>
+
+  <div class="archive-row" data-category="design">
+    <span class="archive-year">2015</span>
+    <span class="archive-title">Indian Publications — Editorial</span>
+    <span class="archive-client">Various</span>
+    <span class="archive-type">Editorial Design</span>
+    <span class="archive-action">View</span>
+  </div>
+
+  <div class="archive-row" data-category="design">
+    <span class="archive-year">2014–15</span>
+    <span class="archive-title">Brand Identities</span>
+    <span class="archive-client">Studio Red</span>
+    <span class="archive-type">Graphic Design</span>
+    <span class="archive-action">View</span>
+  </div>
+
+  <!-- ★ ADD MORE DESIGN ROWS HERE -->
+
+</div>
+
+<div class="contact-band" style="margin-top:0;">
+  <h2>Let's<br>Work.</h2>
+  <div class="contact-links">
+    <a href="mailto:deepdakshyde@gmail.com" class="contact-link">deepdakshyde@gmail.com</a>
+    <a href="https://www.instagram.com/de3pdakshy/" target="_blank" class="contact-link">@de3pdakshy ↗</a>
+    <a href="commercial.html" class="contact-link">Selected Commercial →</a>
+    <a href="art.html" class="contact-link">Selected Art & Film →</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Deep Dakshy</span>
+  <a href="https://de3p.art" style="color:var(--accent)">de3p.art</a>
+  <a href="index.html">← Home</a>
+</footer>
+
+<!-- Video modal -->
+<div id="v-modal" style="display:none;position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.96);align-items:center;justify-content:center;">
+  <button id="v-close" style="position:absolute;top:20px;right:32px;font-family:var(--body);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#707070;background:none;border:none;cursor:none;">Close ✕</button>
+  <div style="width:90vw;max-width:1200px;aspect-ratio:16/9;">
+    <iframe id="v-iframe" src="" style="width:100%;height:100%;border:none;" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+</div>
+
+<div id="lightbox"><span id="lb-close">Close ✕</span><span id="lb-prev">← Prev</span><img src="" alt=""/><span id="lb-next">Next →</span></div>
+
+<script src="js/main.js"></script>
+<script>
+  // Count rows per section
+  function countRows(cat) {
+    return document.querySelectorAll(`.archive-row[data-category="${cat}"]`).length;
+  }
+  const total = document.querySelectorAll('.archive-row').length;
+  document.getElementById('total-count').textContent = total + ' pieces';
+  document.getElementById('commercial-section-count').textContent = countRows('commercial') + ' projects';
+  document.getElementById('film-section-count').textContent       = countRows('film') + ' films';
+  document.getElementById('photo-section-count').textContent      = countRows('photography') + ' series';
+  document.getElementById('design-section-count').textContent     = countRows('design') + ' projects';
+
+  // Filter
+  document.querySelectorAll('.archive-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.archive-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.archive-row').forEach(row => {
+        row.classList.toggle('hidden', f !== 'all' && row.dataset.category !== f);
+      });
+      document.querySelectorAll('.archive-section-head').forEach(h => {
+        const sec = h.dataset.section;
+        const hasVisible = document.querySelectorAll(`.archive-row[data-category="${sec}"]:not(.hidden)`).length > 0;
+        h.style.display = (f === 'all' || sec === f) && hasVisible ? '' : 'none';
+      });
+    });
+  });
+
+  // Video modal
+  document.querySelectorAll('.archive-row[data-vimeo]').forEach(row => {
+    if (!row.dataset.vimeo) return;
+    row.addEventListener('click', () => {
+      const modal = document.getElementById('v-modal');
+      const iframe = document.getElementById('v-iframe');
+      iframe.src = `https://player.vimeo.com/video/${row.dataset.vimeo}?autoplay=1&title=0&byline=0&portrait=0&color=c8b89a`;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Film rows link to art page
+  document.querySelectorAll('.archive-row[data-art]').forEach(row => {
+    row.addEventListener('click', () => {
+      window.location.href = `art.html#${row.dataset.art}`;
+    });
+  });
+
+  function closeModal() {
+    document.getElementById('v-modal').style.display = 'none';
+    document.getElementById('v-iframe').src = '';
+    document.body.style.overflow = '';
+  }
+  document.getElementById('v-close').addEventListener('click', closeModal);
+  document.getElementById('v-modal').addEventListener('click', e => { if (e.target.id === 'v-modal') closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>

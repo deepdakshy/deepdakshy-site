@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deep Dakshy — Creative Producer · Film Director · Berlin</title>
+  <meta name="description" content="Deep Dakshy is a Creative Producer and Film Director based in Berlin. Commercial campaigns across Europe, independent short films, cinematography. Also known as De3p."/>
+  <meta name="author" content="Deep Dakshy"/>
+  <link rel="canonical" href="https://www.deepdakshy.com/"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Deep Dakshy — Creative Producer · Film Director · Berlin"/>
+  <meta property="og:url" content="https://www.deepdakshy.com/"/>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Person","name":"Deep Dakshy","alternateName":"De3p","url":"https://www.deepdakshy.com","sameAs":["https://www.instagram.com/de3pdakshy/","https://www.linkedin.com/in/deep-dakshy-a23316113/","https://de3p.art"],"jobTitle":"Creative Producer, Film Director","worksFor":{"@type":"Organization","name":"Babbel GmbH"},"address":{"@type":"PostalAddress","addressLocality":"Berlin","addressCountry":"DE"},"alumniOf":{"@type":"EducationalOrganization","name":"MET Film School"}}
+  </script>
+  <link rel="stylesheet" href="css/style-red.css"/>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Deep Dakshy</a>
+  <ul class="nav-links">
+    <li><a href="commercial.html">Commercial</a></li>
+    <li><a href="art.html">Art & Film</a></li>
+    <li><a href="all-work.html">All Work</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO — fullscreen video, COMMERCIAL | ART overlaid ══════════════ -->
+<section class="hero-section">
+
+  <!-- Video fills the section, behind everything -->
+  <div class="hero-video-wrap">
+    <!--
+      ★ REPLACE placeholder with your loop:
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="images/loop.mp4" type="video/mp4">
+      </video>
+    -->
+    <div class="hero-video-ph"></div>
+    <div class="hero-video-overlay"></div>
+  </div>
+
+  <!-- COMMERCIAL | ART split — sits on top of video -->
+  <div class="hero-split">
+    <a href="commercial.html" class="hero-item">
+      <div class="hero-item-inner">
+        <div class="hero-label">Commercial</div>
+        <div class="hero-desc">Brand · Campaign · Content</div>
+        <div class="hero-enter">Enter &nbsp;→</div>
+      </div>
+    </a>
+    <div class="hero-divider"></div>
+    <a href="art.html" class="hero-item">
+      <div class="hero-item-inner">
+        <div class="hero-label">Art & Film</div>
+        <div class="hero-desc">Film · Story · Image</div>
+        <div class="hero-enter">Enter &nbsp;→</div>
+      </div>
+    </a>
+  </div>
+
+</section>
+
+<!-- ═══ ABOUT ════════════════════════════════════════════════════════════ -->
+<section class="landing-about">
+  <div class="landing-about-inner">
+
+    <div class="landing-about-photo">
+      <!--
+        ★ YOUR PHOTO HERE — replace div below with:
+        <img src="images/deep-candid.jpg" alt="Deep Dakshy">
+      -->
+      <div class="landing-about-photo-ph"><span>Add photo</span></div>
+    </div>
+
+    <div class="landing-about-text-wrap">
+      <div class="landing-about-label eyebrow">// about.txt</div>
+      <div class="landing-about-body">
+        <p>Born in Kolkata. Based in Berlin. Working everywhere in between.</p>
+        <p>I'm a cinematographer, director and creative producer. I've shot and directed five films, run paid social campaigns across eight European markets, and started out doing both photojournalism and graphic design before either of those felt like enough.</p>
+        <p>I make films because the camera lets me capture what goes unsaid — a feeling that never found words, a moment that passed before anyone noticed. If one person leaves and calls someone they love, or sits quietly and feels grateful to be alive, that's enough. That's the whole point.</p>
+        <div class="landing-about-links">
+          <a href="commercial.html" class="landing-about-link">Commercial Work →</a>
+          <a href="art.html" class="landing-about-link">Art & Film →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CONTACT ══════════════════════════════════════════════════════════ -->
+<div class="contact-section" id="contact">
+  <div class="contact-left">
+    <h2>Let's<br>Work.</h2>
+    <div class="contact-links" style="margin-top:40px;">
+      <a href="mailto:deepdakshyde@gmail.com" class="contact-link">deepdakshyde@gmail.com</a>
+      <a href="tel:+4917683420286" class="contact-link">+49 176 834 202 86</a>
+      <a href="https://www.instagram.com/de3pdakshy/" target="_blank" class="contact-link">@de3pdakshy ↗</a>
+      <a href="https://www.linkedin.com/in/deep-dakshy-a23316113/" target="_blank" class="contact-link">LinkedIn ↗</a>
+    </div>
+  </div>
+  <div class="contact-right">
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contact-form">
+      <input type="hidden" name="bot-field"/>
+      <input type="hidden" name="form-name" value="contact"/>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label class="cf-label" for="cf-name">Name</label>
+          <input class="cf-input" type="text" id="cf-name" name="name" placeholder="Your name" required/>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label" for="cf-email">Email</label>
+          <input class="cf-input" type="email" id="cf-email" name="email" placeholder="your@email.com" required/>
+        </div>
+      </div>
+      <div class="cf-field">
+        <label class="cf-label" for="cf-subject">What's this about?</label>
+        <select class="cf-input cf-select" id="cf-subject" name="subject">
+          <option value="">Select one</option>
+          <option value="Commercial project">Commercial project</option>
+          <option value="Film collaboration">Film collaboration</option>
+          <option value="DP / Camera work">DP / Camera work</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="cf-field">
+        <label class="cf-label" for="cf-message">Message</label>
+        <textarea class="cf-input cf-textarea" id="cf-message" name="message" placeholder="Tell me about the project..." required></textarea>
+      </div>
+      <button type="submit" class="cf-submit" id="cf-btn">
+        <span id="cf-btn-text">Send Message</span>
+        <span id="cf-btn-arrow"> →</span>
+      </button>
+      <p class="cf-success" id="cf-success" style="display:none;">Message sent — I'll be in touch.</p>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Deep Dakshy</span>
+  <span>Berlin</span>
+  <a href="https://de3p.art">de3p.art</a>
+</footer>
+
+<div id="video-modal">
+  <div class="vm-backdrop"></div>
+  <div class="vm-box">
+    <button class="vm-close">Close ✕</button>
+    <div class="vm-embed"></div>
+  </div>
+</div>
+
+<div id="lightbox">
+  <span id="lb-close">Close ✕</span>
+  <span id="lb-prev">← Prev</span>
+  <img src="" alt=""/>
+  <span id="lb-next">Next →</span>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
