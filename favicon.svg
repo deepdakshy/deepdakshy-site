@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#000"/>
+  <!-- D facing right -->
+  <path d="M16,2 L12,2 C6,2 2,8 2,16 C2,24 6,30 12,30 L16,30 Z" fill="#c0392b"/>
+  <!-- D facing left (mirrored) -->
+  <path d="M16,2 L20,2 C26,2 30,8 30,16 C30,24 26,30 20,30 L16,30 Z" fill="#c0392b"/>
+  <!-- Centre spine -->
+  <line x1="16" y1="2" x2="16" y2="30" stroke="#000" stroke-width="0.8"/>
+  <!-- Inner cutout -->
+  <ellipse cx="16" cy="16" rx="7" ry="10" fill="#000"/>
+  <!-- Inner ring -->
+  <ellipse cx="16" cy="16" rx="7" ry="10" fill="none" stroke="#8b1a1a" stroke-width="0.8"/>
+</svg>

@@ -75,6 +75,8 @@ video { display: block; }
 body::before {
   content: '';
   position: fixed; inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background: repeating-linear-gradient(
     0deg,
     transparent,
@@ -520,7 +522,7 @@ footer a:hover { color: var(--red); }
 .reveal.visible { opacity: 1; transform: none; }
 
 /* ─── REEL ────────────────────────────────────────────────────────────── */
-.reel-wrap { position: relative; aspect-ratio: 16/9; background: var(--surface); overflow: hidden; }
+.reel-wrap { position: relative; aspect-ratio: 16/9; background: var(--surface); overflow: hidden; z-index: 2; }
 .reel-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 .reel-ph {
   position: absolute; inset: 0; display: flex; flex-direction: column;
@@ -599,7 +601,7 @@ footer a:hover { color: var(--red); }
 }
 .art-intro-meta-label { color: var(--dim); letter-spacing: .1em; }
 .art-intro-meta-val { color: var(--text); }
-.art-intro-reel-embed { padding: 36px; display: flex; flex-direction: column; justify-content: center; }
+.art-intro-reel-embed { padding: 36px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
 
 /* ─── ABOUT BAND ──────────────────────────────────────────────────────── */
 .about-band {
@@ -745,7 +747,7 @@ footer a:hover { color: var(--red); }
 /* ─── VIDEO MODAL ─────────────────────────────────────────────────────── */
 #video-modal {
   display: none;
-  position: fixed; inset: 0; z-index: 700;
+  position: fixed; inset: 0; z-index: 9500;
   align-items: center; justify-content: center;
 }
 #video-modal.open { display: flex; }

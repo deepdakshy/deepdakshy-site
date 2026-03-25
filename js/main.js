@@ -50,7 +50,7 @@ function openVideoModal(vimeoId, youtubeId, stats, writeup) {
   if (!$vm || !$vmEmbed) return;
   let src = '';
   if (vimeoId)   src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0`;
-  if (youtubeId) src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+  if (youtubeId) src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`;
   $vmEmbed.innerHTML = src
     ? `<iframe src="${src}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
     : `<div class="vm-no-video">Video coming soon</div>`;
