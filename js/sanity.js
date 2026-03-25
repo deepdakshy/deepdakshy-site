@@ -169,14 +169,18 @@ async function loadCommercial() {
   const vCountEl = document.getElementById('v-count');
   if (vCountEl && vCount > 0) vCountEl.textContent = vCount + ' videos';
 
-  // Hide vertical section if empty
+  // Always show vertical section, show placeholder if empty
   const vSection = document.getElementById('vertical-section');
-  if (vSection && vCount === 0) vSection.style.display = 'none';
+  if (vSection) vSection.style.display = 'block';
+
+  if (vCount === 0 && vGrid) {
+    vGrid.innerHTML = '<p style="font-family:var(--mono);font-size:.6rem;color:var(--dim);padding:20px 0 20px 40px;">Mark projects as Vertical in Sanity to populate this section.</p>';
+  }
 
   // Init load more for both grids
   setTimeout(() => {
-    initLoadMoreDynamic('c-gallery', 'c-load-more', 'c-load-count', 10);
-    if (vCount > 0) initLoadMoreDynamic('v-gallery', 'v-load-more', 'v-load-count', 10);
+    initSanityLoadMore('c-gallery', 'c-load-more', 'c-load-count', 'c-load-more-wrap', 10);
+    if (vCount > 0) initSanityLoadMore('v-gallery', 'v-load-more', 'v-load-count', 'v-load-more-wrap', 10);
   }, 100);
 }
 
