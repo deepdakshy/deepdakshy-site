@@ -177,11 +177,11 @@ async function loadCommercial() {
     vGrid.innerHTML = '<p style="font-family:var(--mono);font-size:.6rem;color:var(--dim);padding:20px 0 20px 40px;">Mark projects as Vertical in Sanity to populate this section.</p>';
   }
 
-  // Init load more for both grids
+  // Init load more after cards are in DOM
   setTimeout(() => {
-    initSanityLoadMore('c-gallery', 'c-load-more', 'c-load-count', 'c-load-more-wrap', 10);
-    if (vCount > 0) initSanityLoadMore('v-gallery', 'v-load-more', 'v-load-count', 'v-load-more-wrap', 10);
-  }, 100);
+    if (hCount > 10) initSanityLoadMore('c-gallery', 'c-load-more', 'c-load-count', 'c-load-more-wrap', 10);
+    if (vCount > 10) initSanityLoadMore('v-gallery', 'v-load-more', 'v-load-count', 'v-load-more-wrap', 10);
+  }, 200);
 }
 
 // ── LOAD FILMS ────────────────────────────────────────────────────────────
