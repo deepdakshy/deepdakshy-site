@@ -21,9 +21,121 @@ function ytThumb(id) {
   return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 }
 
+// ── BUILD CARD ────────────────────────────────────────────────────────────
+function buildCard(p, isVertical) {
+  const thumb = p.youtubeId
+    ? ytThumb(p.youtubeId)
+    : p.thumbnail ? imageUrl(p.thumbnail.asset._ref) : null;
+
+  const statsStr = p.stats ? p.stats.join('|') : '';
+
+  const card = document.createElement('div');
+  card.className = isVertical ? 'c-card vertical' : 'c-card';
+  card.dataset.vimeo   = p.vimeoId   || '';
+  card.dataset.youtube = p.youtubeId || '';
+  card.dataset.role    = p.role      || '';
+  card.dataset.stats   = statsStr;
+  card.dataset.client  = `${p.client || ''} · ${p.type || ''} · ${p.year || ''}`;
+  card.dataset.title   = p.title     || '';
+  card.dataset.writeup = p.writeup   || '';
+
+  card.innerHTML = `
+    <div class="c-thumb">
+      ${thumb
+        ? `<img src="${thumb}" alt="${p.title}" loading="lazy">`
+        : `<div class="c-thumb-ph">${p.title || 'Add thumbnail'}</div>`}
+      <div class="c-play">▶</div>
+    </div>
+    <div class="c-info">
+      <p class="c-client">${p.client || ''} &nbsp;·&nbsp; ${p.type || ''} &nbsp;·&nbsp; ${p.year || ''}</p>
+      <p class="c-title">${p.title || ''}</p>
+      <p class="c-role">${p.role || ''}</p>
+      <p class="c-desc">${p.description || ''}</p>
+    </div>`;
+
+  card.addEventListener('click', () => {
+    openVideoModal(card.dataset.vimeo, card.dataset.youtube, card);
+  });
+
+  return card;
+}
+
+// ── LOAD MORE ────────────────────────────────────────────────────────────
+function initLoadMoreDynamic(gridId, btnId, countId, perPage) {
+  const grid  = document.getElementById(gridId);
+  const btn   = document.getElementById(btnId);
+  const count = document.getElementById(countId);
+  if (!grid || !btn) return;
+
+  const cards = Array.from(grid.children);
+  const total = cards.length;
+  let shown   = 0;
+
+  function showNext() {
+    const next = Math.min(shown + perPage, total);
+    for (let i = shown; i < next; i++) {
+      cards[i].style.display = '';
+      setTimeout(() => cards[i].classList.add('visible'), (i - shown) * 60);
+    }
+    shown = next;
+    if (count) count.textContent = shown + ' / ' + total;
+    if (shown >= total) {
+      btn.style.display = 'none';
+      if (count) count.textContent = 'All ' + total + ' shown';
+    }
+  }
+
+  // Hide all first
+  cards.forEach(c => { c.style.display = 'none'; c.classList.remove('visible'); });
+  shown = 0;
+  showNext();
+  btn.addEventListener('click', showNext);
+  btn.style.display = total > perPage ? '' : 'none';
+
+  // Show wrap
+  const wrap = btn.parentElement;
+  if (wrap) wrap.style.display = '';
+}
+
+// ── LOAD MORE FOR SANITY GRIDS ───────────────────────────────────────────
+function initSanityLoadMore(gridId, btnId, countId, perPage) {
+  const grid  = document.getElementById(gridId);
+  const btn   = document.getElementById(btnId);
+  const count = document.getElementById(countId);
+  if (!grid || !btn) return;
+
+  const cards = Array.from(grid.children);
+  const total = cards.length;
+  let shown   = 0;
+
+  function showNext() {
+    const next = Math.min(shown + perPage, total);
+    for (let i = shown; i < next; i++) {
+      cards[i].style.display = '';
+      setTimeout(() => cards[i].classList.add('visible'), (i - shown) * 60);
+    }
+    shown = next;
+    if (count) count.textContent = shown + ' / ' + total;
+    if (shown >= total) {
+      btn.style.display = 'none';
+      if (count) count.textContent = 'All ' + total + ' shown';
+    }
+  }
+
+  // Hide all first
+  cards.forEach(c => { c.style.display = 'none'; c.classList.remove('visible'); });
+  showNext();
+  btn.addEventListener('click', showNext);
+
+  // Show wrap
+  const wrap = btn.parentElement;
+  if (wrap) wrap.style.display = 'flex';
+}
+
 // ── LOAD COMMERCIAL PROJECTS ──────────────────────────────────────────────
 async function loadCommercial() {
-  const grid = document.getElementById('c-gallery');
+  const grid    = document.getElementById('c-gallery');
+  const vGrid   = document.getElementById('v-gallery');
   if (!grid) return;
 
   const projects = await sanityQuery(
@@ -32,51 +144,40 @@ async function loadCommercial() {
   if (!projects || !projects.length) return;
 
   grid.innerHTML = '';
+  if (vGrid) vGrid.innerHTML = '';
+
+  let hCount = 0;
+  let vCount = 0;
 
   projects.forEach(p => {
-    const thumb = p.youtubeId
-      ? ytThumb(p.youtubeId)
-      : p.thumbnail ? imageUrl(p.thumbnail.asset._ref) : null;
+    const isVertical = p.format === 'vertical';
+    const card = buildCard(p, isVertical);
 
-    const statsStr = p.stats ? p.stats.join('|') : '';
-
-    const card = document.createElement('div');
-    card.className = 'c-card';
-    card.dataset.vimeo    = p.vimeoId  || '';
-    card.dataset.youtube  = p.youtubeId || '';
-    card.dataset.role     = p.role     || '';
-    card.dataset.stats    = statsStr;
-    card.dataset.client   = `${p.client || ''} · ${p.type || ''} · ${p.year || ''}`;
-    card.dataset.title    = p.title    || '';
-    card.dataset.writeup  = p.writeup  || '';
-
-    card.innerHTML = `
-      <div class="c-thumb">
-        ${thumb
-          ? `<img src="${thumb}" alt="${p.title}" loading="lazy">`
-          : `<div class="c-thumb-ph">${p.title || 'Add thumbnail'}</div>`}
-        <div class="c-play">▶</div>
-      </div>
-      <div class="c-info">
-        <p class="c-client">${p.client || ''} &nbsp;·&nbsp; ${p.type || ''} &nbsp;·&nbsp; ${p.year || ''}</p>
-        <p class="c-title">${p.title || ''}</p>
-        <p class="c-role">${p.role || ''}</p>
-        <p class="c-desc">${p.description || ''}</p>
-      </div>`;
-
-    grid.appendChild(card);
+    if (isVertical && vGrid) {
+      vGrid.appendChild(card);
+      vCount++;
+    } else {
+      grid.appendChild(card);
+      hCount++;
+    }
   });
 
-  // Update count
+  // Update counts
   const countEl = document.getElementById('c-count');
-  if (countEl) countEl.textContent = projects.length + ' projects';
+  if (countEl) countEl.textContent = hCount + ' projects';
 
-  // Rewire video modal clicks
-  grid.querySelectorAll('.c-card').forEach(card => {
-    card.addEventListener('click', () => {
-      openVideoModal(card.dataset.vimeo, card.dataset.youtube, card);
-    });
-  });
+  const vCountEl = document.getElementById('v-count');
+  if (vCountEl && vCount > 0) vCountEl.textContent = vCount + ' videos';
+
+  // Hide vertical section if empty
+  const vSection = document.getElementById('vertical-section');
+  if (vSection && vCount === 0) vSection.style.display = 'none';
+
+  // Init load more for both grids
+  setTimeout(() => {
+    initLoadMoreDynamic('c-gallery', 'c-load-more', 'c-load-count', 10);
+    if (vCount > 0) initLoadMoreDynamic('v-gallery', 'v-load-more', 'v-load-count', 10);
+  }, 100);
 }
 
 // ── LOAD FILMS ────────────────────────────────────────────────────────────
@@ -158,6 +259,14 @@ async function loadSettings() {
       ? `https://www.youtube.com/embed/${id}`
       : `https://player.vimeo.com/video/${vid}?title=0&byline=0&portrait=0`;
     commReel.innerHTML = `<iframe src="${src}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+  }
+
+  // Vertical showreel
+  const vReelWrap = document.querySelector('#vertical-showreel .reel-wrap');
+  const vReelSection = document.getElementById('vertical-showreel');
+  if (vReelWrap && settings.verticalShowreelYoutube) {
+    vReelWrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${settings.verticalShowreelYoutube}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+    if (vReelSection) vReelSection.style.display = 'block';
   }
 
   // Art showreel — same element id on art page

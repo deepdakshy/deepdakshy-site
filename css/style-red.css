@@ -750,13 +750,17 @@ footer a:hover { color: var(--red); }
 }
 #video-modal.open { display: flex; }
 .vm-backdrop {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 1;
   background: rgba(0,0,0,.92);
   cursor: none;
 }
 .vm-box {
-  position: relative; z-index: 2;
+  position: relative; z-index: 10;
   width: min(900px, 94vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--border2);
 }
 .vm-close {
   position: absolute;
@@ -960,4 +964,23 @@ footer a { font-size: .72rem; }
 @media (max-width: 600px) {
   .vm-stats { flex-wrap: wrap; }
   .vm-stat { min-width: 50%; }
+}
+
+/* ─── VERTICAL VIDEO CARDS (9:16) ───────────────────────────────────── */
+.vertical-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 0 40px 40px;
+}
+.c-card.vertical .c-thumb {
+  aspect-ratio: 9/16;
+  max-height: 420px;
+}
+@media (max-width: 768px) {
+  .vertical-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 16px 32px;
+  }
+  .c-card.vertical .c-thumb { max-height: 280px; }
 }
