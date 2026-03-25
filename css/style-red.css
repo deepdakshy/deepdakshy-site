@@ -596,11 +596,12 @@ footer a:hover { color: var(--red); }
 .art-intro-body { font-family: var(--mono); font-size: .72rem; color: var(--text); line-height: 1.95; }
 .art-intro-meta { display: flex; flex-direction: column; }
 .art-intro-meta-item {
+  align-items: flex-start;
   display: flex; justify-content: space-between;
   padding: 10px 0; border-top: 1px solid var(--border2); font-family: var(--mono); font-size: .58rem;
 }
 .art-intro-meta-label { color: var(--dim); letter-spacing: .1em; }
-.art-intro-meta-val { color: var(--text); }
+.art-intro-meta-val { color: var(--text); text-align: right; }
 .art-intro-reel-embed { padding: 36px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
 
 /* ─── ABOUT BAND ──────────────────────────────────────────────────────── */
