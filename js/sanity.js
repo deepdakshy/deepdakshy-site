@@ -54,7 +54,7 @@ function buildCard(p, isVertical) {
     </div>`;
 
   card.addEventListener('click', () => {
-    openVideoModal(card.dataset.vimeo, card.dataset.youtube, card);
+    openVideoModal(card.dataset.vimeo, card.dataset.youtube, card.dataset.stats, card.dataset.writeup);
   });
 
   return card;
