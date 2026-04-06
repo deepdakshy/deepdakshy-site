@@ -139,7 +139,7 @@ async function loadCommercial() {
   if (!grid) return;
 
   const projects = await sanityQuery(
-    '*[_type == "commercial"] | order(order asc)'
+    '*[_type == "commercial"]{_id,title,client,type,year,role,format,youtubeId,vimeoId,stats,description,writeup,order,thumbnail} | order(order asc)'
   );
   if (!projects || !projects.length) return;
 

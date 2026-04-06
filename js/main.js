@@ -46,31 +46,41 @@ const $vmEmbed   = $vm?.querySelector('.vm-embed');
 const $vmClose   = $vm?.querySelector('.vm-close');
 const $vmBackdrop= $vm?.querySelector('.vm-backdrop');
 
-function openVideoModal(vimeoId, youtubeId, stats, writeup) {
+function openVideoModal(vimeoId, youtubeId, card) {
   if (!$vm || !$vmEmbed) return;
   let src = '';
   if (vimeoId)   src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0`;
   if (youtubeId) src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`;
   $vmEmbed.innerHTML = src
     ? `<iframe src="${src}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
-    : `<div class="vm-no-video">Video coming soon</div>`;
+    : `<div style="aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:var(--surface);font-family:var(--mono);font-size:.6rem;color:var(--dim);">Video coming soon</div>`;
 
-  // Stats row
-  const $stats = document.getElementById('vm-stats');
-  if ($stats) {
-    if (stats) {
-      $stats.innerHTML = stats.split('|').map(s => `<span class="vm-stat">${s.trim()}</span>`).join('');
-      $stats.style.display = 'flex';
-    } else {
-      $stats.style.display = 'none';
+  if (card) {
+    const d = card.dataset;
+    const $vmClient = $vm.querySelector('.vm-client');
+    const $vmTitle  = $vm.querySelector('.vm-title');
+    const $vmRole   = $vm.querySelector('.vm-role');
+    const $vmStats  = $vm.querySelector('.vm-stats');
+    const $vmWriteup= $vm.querySelector('.vm-writeup');
+
+    if ($vmClient) $vmClient.textContent = d.client || '';
+    if ($vmTitle)  $vmTitle.textContent  = d.title  || '';
+    if ($vmRole)   $vmRole.textContent   = d.role   || '';
+
+    if ($vmStats && d.stats) {
+      const stats = d.stats.split('|').map(s => s.trim()).filter(Boolean);
+      $vmStats.innerHTML = stats.map(s => {
+        const parts = s.match(/^(.+?)\s+([\w\s&+]+)$/);
+        if (parts) return `<div class="vm-stat"><div class="vm-stat-val">${parts[1]}</div><div class="vm-stat-label">${parts[2]}</div></div>`;
+        return `<div class="vm-stat"><div class="vm-stat-val">${s}</div></div>`;
+      }).join('');
+      $vmStats.style.display = 'flex';
+    } else if ($vmStats) {
+      $vmStats.innerHTML = '';
+      $vmStats.style.display = 'none';
     }
-  }
 
-  // Write-up
-  const $writeup = document.getElementById('vm-writeup');
-  if ($writeup) {
-    $writeup.textContent = writeup || '';
-    $writeup.style.display = writeup ? 'block' : 'none';
+    if ($vmWriteup) $vmWriteup.textContent = d.writeup || '';
   }
 
   $vm.classList.add('open');
@@ -91,11 +101,7 @@ $vmBackdrop?.addEventListener('click', closeVideoModal);
 document.querySelectorAll('.c-card').forEach(card => {
   if (!card.classList.contains('film-card')) {
     card.addEventListener('click', () => {
-      const vid     = card.dataset.vimeo;
-      const yt      = card.dataset.youtube;
-      const stats   = card.dataset.stats;
-      const writeup = card.dataset.writeup;
-      openVideoModal(vid, yt, stats, writeup);
+      openVideoModal(card.dataset.vimeo, card.dataset.youtube, card);
     });
   }
 });
@@ -123,12 +129,17 @@ function openFilm(card) {
     metaRow.innerHTML += `<div class="overlay-meta-item">${m.label} <span>${m.val}</span></div>`;
   });
 
-  // Cover + body side by side
-  const $heroContent = $overlay.querySelector('.overlay-hero-content');
+  // Left side — video if available, otherwise cover image
   const $cover = $overlay.querySelector('.overlay-cover');
-  $cover.innerHTML = d.cover
-    ? `<img src="${d.cover}" alt="${d.title}">`
-    : `<div class="overlay-cover-ph">Add hero still</div>`;
+  if (d.vimeo) {
+    $cover.innerHTML = `<div class="overlay-cover-video"><iframe src="https://player.vimeo.com/video/${d.vimeo}?title=0&byline=0&portrait=0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>`;
+  } else if (d.youtube) {
+    $cover.innerHTML = `<div class="overlay-cover-video"><iframe src="https://www.youtube.com/embed/${d.youtube}?rel=0&modestbranding=1" allow="autoplay; fullscreen" allowfullscreen></iframe></div>`;
+  } else if (d.cover) {
+    $cover.innerHTML = `<img src="${d.cover}" alt="${d.title}">`;
+  } else {
+    $cover.innerHTML = `<div class="overlay-cover-ph">Add hero still or video ID</div>`;
+  }
 
   // Stills below
   const $imgs = $overlay.querySelector('.overlay-images');
@@ -168,26 +179,9 @@ function openFilm(card) {
     $cred.innerHTML += `<div class="credit-item"><p class="credit-sub">${cr.label}</p>${cr.val}</div>`;
   });
 
-  // Trailer — shown in overlay itself (not modal)
+  // Trailer section — hide it, video is now on the left
   const $trailer = $overlay.querySelector('.overlay-trailer');
-  if (d.vimeo) {
-    $trailer.innerHTML = `<p class="overlay-trailer-label">Trailer</p>
-      <div class="reel-wrap"><iframe src="https://player.vimeo.com/video/${d.vimeo}?title=0&byline=0&portrait=0"
-        allow="autoplay; fullscreen" allowfullscreen></iframe></div>`;
-  } else if (d.youtube) {
-    $trailer.innerHTML = `<p class="overlay-trailer-label">Trailer</p>
-      <div class="reel-wrap"><iframe src="https://www.youtube.com/embed/${d.youtube}"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
-  } else {
-    $trailer.innerHTML = `<p class="overlay-trailer-label">Trailer</p>
-      <div class="reel-wrap"><div class="reel-ph">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="1"/>
-          <polygon points="19,14 37,24 19,34" fill="currentColor"/>
-        </svg>
-        <span>Add Vimeo or YouTube ID in data-vimeo / data-youtube</span>
-      </div></div>`;
-  }
+  if ($trailer) $trailer.innerHTML = '';
 
   initLightbox();
   $overlay.classList.add('open');
@@ -199,7 +193,9 @@ function closeFilm() {
   if (!$overlay) return;
   $overlay.classList.remove('open');
   document.body.style.overflow = '';
-  const ifr = $overlay.querySelector('iframe');
+  // Stop any playing video on left side
+  const $cover = $overlay.querySelector('.overlay-cover');
+  const ifr = $cover?.querySelector('iframe');
   if (ifr) { const s = ifr.src; ifr.src = ''; ifr.src = s; }
 }
 

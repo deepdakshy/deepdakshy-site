@@ -593,7 +593,7 @@ footer a:hover { color: var(--red); }
   padding: 48px 40px; border-right: 1px solid var(--border2);
   display: flex; flex-direction: column; justify-content: space-between; gap: 28px;
 }
-.art-intro-body { font-family: var(--mono); font-size: .72rem; color: var(--text); line-height: 1.95; }
+.art-intro-body { font-family: var(--mono); font-size: .68rem; color: var(--text); line-height: 1.7; }
 .art-intro-meta { display: flex; flex-direction: column; }
 .art-intro-meta-item {
   align-items: flex-start;
@@ -688,10 +688,10 @@ footer a:hover { color: var(--red); }
 .overlay-cover {
   overflow: hidden;
   background: var(--surface);
-  min-height: 320px;
+  aspect-ratio: 16/9;
   border-right: 1px solid var(--border2);
 }
-.overlay-cover img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.8) saturate(.15); display: block; }
+.overlay-cover img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.95) saturate(1); display: block; }
 .overlay-cover-ph {
   width: 100%; height: 100%; min-height: 320px;
   display: flex; align-items: center; justify-content: center;
@@ -717,9 +717,10 @@ footer a:hover { color: var(--red); }
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 2px; background: var(--border2);
 }
-.overlay-img-item { aspect-ratio: 4/3; overflow: hidden; background: var(--surface); cursor: none; position: relative; }
-.overlay-img-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.8) saturate(.1); transition: filter .4s, transform .6s; }
-.overlay-img-item:hover img { filter: brightness(.95) saturate(.2); transform: scale(1.04); }
+.overlay-img-item {
+  aspect-ratio: 16/9; aspect-ratio: 4/3; overflow: hidden; background: var(--surface); cursor: none; position: relative; }
+.overlay-img-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.95) saturate(1); transition: filter .4s, transform .6s; }
+.overlay-img-item:hover img { filter: brightness(1) saturate(1); transform: scale(1.04); }
 .overlay-img-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: .54rem; color: var(--dim); }
 .overlay-trailer { padding: 0 40px 56px; border-bottom: 1px solid var(--border2); }
 .overlay-trailer-label { font-family: var(--mono); font-size: .58rem; letter-spacing: .16em; color: var(--red-dim); margin-bottom: 18px; }
@@ -729,8 +730,8 @@ footer a:hover { color: var(--red); }
   .film-grid { grid-template-columns: 1fr; }
   .commercial-grid { grid-template-columns: 1fr; }
   .art-intro-reel { grid-template-columns: 1fr; }
-  .art-intro-text { border-right: none; border-bottom: 1px solid var(--border2); padding: 36px 20px; }
-  .art-intro-reel-embed { padding: 20px; }
+  .art-intro-text { border-right: none; border-bottom: 1px solid var(--border2); padding: 28px 20px; order: 1; }
+  .art-intro-reel-embed { padding: 16px 20px 24px; order: 2; }
   .about-band { grid-template-columns: 1fr; }
   .about-text { border-right: none; border-bottom: 1px solid var(--border2); padding: 48px 20px; }
   .about-details { padding: 48px 20px; }
@@ -980,10 +981,93 @@ footer a { font-size: .72rem; }
   aspect-ratio: 9/16;
   max-height: 420px;
 }
-@media (max-width: 768px) {
+.c-card.vertical .c-thumb img {
+  object-position: center top;
+}
+@media (max-width: 900px) {
   .vertical-grid {
     grid-template-columns: repeat(2, 1fr);
     padding: 0 16px 32px;
   }
-  .c-card.vertical .c-thumb { max-height: 280px; }
+  .c-card.vertical .c-thumb { max-height: 320px; }
+}
+@media (max-width: 480px) {
+  .vertical-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 12px 24px;
+  }
+  .c-card.vertical .c-thumb { max-height: 240px; }
+}
+
+/* ─── MOBILE NAV FIX ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #nav { padding: 0 16px; height: 44px; }
+  .nav-logo { font-size: .68rem; white-space: nowrap; }
+  .nav-links { gap: 14px; }
+  .nav-links a { font-size: .55rem; letter-spacing: .06em; white-space: nowrap; }
+  /* Hide All Work and CV on mobile — accessible from other places */
+  .nav-links li:nth-child(3),
+  .nav-links li:nth-child(4) { display: none; }
+}
+
+/* Fix mobile intro text line height */
+@media (max-width: 768px) {
+  .art-intro-body { font-size: .65rem; line-height: 1.6; }
+}
+
+/* ─── MOBILE NAV FIX ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #nav { padding: 0 16px; height: 44px; }
+  .nav-logo { font-size: .68rem; white-space: nowrap; }
+  .nav-links { gap: 14px; }
+  .nav-links a { font-size: .55rem; letter-spacing: .06em; white-space: nowrap; }
+  .nav-links li:nth-child(3),
+  .nav-links li:nth-child(4) { display: none; }
+  .art-intro-body { font-size: .65rem; line-height: 1.6; }
+  .art-intro-text { order: 1; }
+  .art-intro-reel-embed { order: 2; }
+}
+
+/* ─── VERTICAL CARDS ─────────────────────────────────────────────────── */
+.vertical-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 0 40px 40px;
+}
+.c-card.vertical .c-thumb {
+  aspect-ratio: 9/16;
+  max-height: 420px;
+}
+.c-card.vertical .c-thumb img {
+  object-position: center top;
+}
+@media (max-width: 900px) {
+  .vertical-grid { grid-template-columns: repeat(2, 1fr); padding: 0 16px 32px; }
+  .c-card.vertical .c-thumb { max-height: 320px; }
+}
+@media (max-width: 480px) {
+  .vertical-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 12px 24px; }
+  .c-card.vertical .c-thumb { max-height: 240px; }
+}
+
+/* ─── OVERLAY COVER VIDEO ────────────────────────────────────────────── */
+.overlay-cover-video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  background: #000;
+}
+.overlay-cover-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+/* Make cover fill height properly when video */
+.overlay-cover {
+  min-height: 280px;
 }
