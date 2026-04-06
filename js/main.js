@@ -126,9 +126,27 @@ function openFilm(card) {
   // Cover + body side by side
   const $heroContent = $overlay.querySelector('.overlay-hero-content');
   const $cover = $overlay.querySelector('.overlay-cover');
-  $cover.innerHTML = d.cover
-    ? `<img src="${d.cover}" alt="${d.title}">`
-    : `<div class="overlay-cover-ph">Add hero still</div>`;
+
+  // Trailer in hero position (left column)
+  const $trailerHero = $overlay.querySelector('.overlay-trailer-hero');
+  if ($trailerHero) {
+    if (d.vimeo) {
+      $trailerHero.innerHTML = `<div class="reel-wrap"><iframe src="https://player.vimeo.com/video/${d.vimeo}?title=0&byline=0&portrait=0"
+        allow="autoplay; fullscreen" allowfullscreen></iframe></div>`;
+    } else if (d.youtube) {
+      $trailerHero.innerHTML = `<div class="reel-wrap"><iframe src="https://www.youtube.com/embed/${d.youtube}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+    } else {
+      $trailerHero.innerHTML = `<div class="reel-ph">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="1"/>
+          <polygon points="19,14 37,24 19,34" fill="currentColor"/>
+        </svg>
+        <span>Add Vimeo or YouTube ID</span>
+      </div>`;
+    }
+  }
+  if ($cover) $cover.style.display = 'none';
 
   // Stills below
   const $imgs = $overlay.querySelector('.overlay-images');
@@ -168,26 +186,9 @@ function openFilm(card) {
     $cred.innerHTML += `<div class="credit-item"><p class="credit-sub">${cr.label}</p>${cr.val}</div>`;
   });
 
-  // Trailer — shown in overlay itself (not modal)
+  // Trailer — now shown in hero position, clear legacy container
   const $trailer = $overlay.querySelector('.overlay-trailer');
-  if (d.vimeo) {
-    $trailer.innerHTML = `<p class="overlay-trailer-label">Trailer</p>
-      <div class="reel-wrap"><iframe src="https://player.vimeo.com/video/${d.vimeo}?title=0&byline=0&portrait=0"
-        allow="autoplay; fullscreen" allowfullscreen></iframe></div>`;
-  } else if (d.youtube) {
-    $trailer.innerHTML = `<p class="overlay-trailer-label">Trailer</p>
-      <div class="reel-wrap"><iframe src="https://www.youtube.com/embed/${d.youtube}"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
-  } else {
-    $trailer.innerHTML = `<p class="overlay-trailer-label">Trailer</p>
-      <div class="reel-wrap"><div class="reel-ph">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="1"/>
-          <polygon points="19,14 37,24 19,34" fill="currentColor"/>
-        </svg>
-        <span>Add Vimeo or YouTube ID in data-vimeo / data-youtube</span>
-      </div></div>`;
-  }
+  if ($trailer) $trailer.innerHTML = '';
 
   initLightbox();
   $overlay.classList.add('open');
@@ -303,3 +304,35 @@ function initLoadMore(gridId, btnId, countId, wrapId, perPage) {
 
 initLoadMore('film-grid', 'film-load-more', 'film-load-count', 'film-load-more-wrap', 10);
 initLoadMore('c-gallery', 'c-load-more',    'c-load-count',    'c-load-more-wrap',    10);
+
+// ── SCROLL-TO-B&W — cards start in color, go grayscale when scrolled past ──
+(function() {
+  function initScrollBW() {
+    const cards = document.querySelectorAll('.c-card');
+    if (!cards.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('scrolled-bw');
+        } else {
+          entry.target.classList.add('scrolled-bw');
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  // Run on load and re-run after a delay (for Sanity-injected cards)
+  document.addEventListener('DOMContentLoaded', () => {
+    initScrollBW();
+    setTimeout(initScrollBW, 2000);
+    setTimeout(initScrollBW, 4000);
+  });
+
+  // Also expose globally so sanity.js can call it after loading
+  window.initScrollBW = initScrollBW;
+})();

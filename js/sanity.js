@@ -303,7 +303,7 @@ async function loadSettings() {
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  loadCommercial();
-  loadFilms();
-  loadSettings();
+  Promise.all([loadCommercial(), loadFilms(), loadSettings()]).then(() => {
+    if (window.initScrollBW) window.initScrollBW();
+  });
 });
