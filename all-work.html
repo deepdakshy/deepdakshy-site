@@ -386,7 +386,7 @@
 <div class="contact-band" style="margin-top:0;">
   <h2>Let's<br>Work.</h2>
   <div class="contact-links">
-    <a href="/cdn-cgi/l/email-protection#e48081819480858f978c9d8081a48389858d88ca878b89" class="contact-link"><span class="__cf_email__" data-cfemail="5f3b3a3a2f3b3e342c37263b3a1f38323e3633713c3032">[email&#160;protected]</span></a>
+    <a href="mailto:deepdakshyde@gmail.com" class="contact-link">deepdakshyde@gmail.com</a>
     <a href="https://www.instagram.com/de3pdakshy/" target="_blank" class="contact-link">@de3pdakshy ↗</a>
     <a href="commercial.html" class="contact-link">Selected Commercial →</a>
     <a href="art.html" class="contact-link">Selected Art & Film →</a>
@@ -409,7 +409,7 @@
 
 <div id="lightbox"><span id="lb-close">Close ✕</span><span id="lb-prev">← Prev</span><img src="" alt=""/><span id="lb-next">Next →</span></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.js"></script>
+<script src="js/main.js"></script>
 <script>
   // Count rows per section
   function countRows(cat) {
@@ -463,4 +463,9 @@
     document.getElementById('v-iframe').src = '';
     document.body.style.overflow = '';
   }
-  document.getElementById('v-close').addEventListener('click
+  document.getElementById('v-close').addEventListener('click', closeModal);
+  document.getElementById('v-modal').addEventListener('click', e => { if (e.target.id === 'v-modal') closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
