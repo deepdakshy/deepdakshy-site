@@ -136,6 +136,8 @@ function openFilm(card) {
     } else if (d.youtube) {
       $trailerHero.innerHTML = `<div class="reel-wrap"><iframe src="https://www.youtube.com/embed/${d.youtube}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+    } else if (d.cover) {
+      $trailerHero.innerHTML = `<img src="${d.cover}" alt="${d.title || ''}">`;
     } else {
       $trailerHero.innerHTML = `<div class="reel-ph">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
