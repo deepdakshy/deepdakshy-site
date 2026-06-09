@@ -256,6 +256,18 @@ async function loadSettings() {
 
   // Commercial showreel
   const commReel = document.querySelector('.art-intro-reel-embed .reel-wrap');
+
+  // Hero loop video — load from Sanity if URL provided
+  const heroLoop = document.getElementById('hero-loop');
+  if (heroLoop && settings.heroVideoUrl) {
+    heroLoop.querySelector('source')?.remove();
+    const source = document.createElement('source');
+    source.src = settings.heroVideoUrl;
+    source.type = 'video/mp4';
+    heroLoop.appendChild(source);
+    heroLoop.load();
+  }
+
   if (commReel && (settings.commercialShowreelYoutube || settings.commercialShowreelVimeo)) {
     const id  = settings.commercialShowreelYoutube;
     const vid = settings.commercialShowreelVimeo;
