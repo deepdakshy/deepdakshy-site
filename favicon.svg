@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32">
+  <!-- Generator: Adobe Illustrator 29.7.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 138)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+        stroke: #000;
+        stroke-width: .8px;
+      }
+
+      .st1 {
+        fill: #c0392b;
+        font-family: Handsel, Handsel;
+        font-size: 23px;
+      }
+    </style>
+  </defs>
+  <rect y="-.05" width="32" height="32"/>
+  <line class="st0" x1="16" y1="1.95" x2="16" y2="29.95"/>
+  <polyline points="16.04 21.68 11.84 21.68 11.84 8.13 16.04 8.13"/>
+  <text class="st1" transform="translate(3 22.5)"><tspan x="0" y="0">Dd</tspan></text>
+</svg>
