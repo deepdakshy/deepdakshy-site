@@ -84,8 +84,10 @@ video { display: block; }
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(0,0,0,.95);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .nav-logo {
   font-family: var(--mono);
@@ -122,17 +124,21 @@ video { display: block; }
 .hero-section {
   position: relative;
   width: 100%;
-  padding-top: 48px;
+  height: 100vh;
+  min-height: 500px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* Video fills top portion */
+/* Video fills the hero entirely */
 .hero-video-wrap {
-  position: relative; width: 100%; background: #000;
+  position: absolute; inset: 0; z-index: 0;
 }
 .hero-video {
-  width: 100%; display: block;
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
 }
 .hero-video-ph {
   position: absolute; inset: 0;
@@ -143,12 +149,16 @@ video { display: block; }
   display: none;
 }
 
-/* Split sits below video, not overlapping */
+/* Split sits at bottom of hero, transparent over video */
 .hero-split {
-  position: relative;
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
   z-index: 2;
   display: flex;
-  border-top: 1px solid var(--border2);
+  border-top: 1px solid rgba(255,255,255,.1);
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .hero-item {
   flex: 1;
@@ -787,9 +797,9 @@ footer a:hover { color: var(--red); }
 @media (max-width: 768px) {
   /* Hero: video stays fullscreen, split stacks below video naturally */
   .hero-section { height: auto; min-height: 0; }
-  .hero-video-wrap { height: auto; min-height: 0; }
+  .hero-video-wrap { position: relative; width: 100%; padding-top: 56.25%; }
   .hero-video-ph { position: absolute; inset: 0; }
-  .hero-video { width: 100%; display: block; }
+  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .hero-video-overlay { position: absolute; inset: 0; }
   .hero-split {
     position: relative;
@@ -820,7 +830,7 @@ footer a:hover { color: var(--red); }
 }
 
 /* ─── NAV SCROLLED ───────────────────────────────────────────────────── */
-#nav.scrolled { background: rgba(0,0,0,.98); }
+#nav.scrolled { background: rgba(0,0,0,.95); backdrop-filter: none; }
 
 /* ─── NAV — more links ───────────────────────────────────────────────── */
 @media (max-width: 1024px) { .nav-links { gap: 14px; } .nav-links a { font-size: .54rem; } }
