@@ -122,18 +122,17 @@ video { display: block; }
 .hero-section {
   position: relative;
   width: 100%;
+  padding-top: 48px;
   display: flex;
   flex-direction: column;
 }
 
 /* Video fills top portion */
 .hero-video-wrap {
-  position: relative; width: 100%; height: 70vh; min-height: 350px; overflow: hidden;
+  position: relative; width: 100%; background: #000;
 }
 .hero-video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
+  width: 100%; max-height: calc(100vh - 48px - 200px); object-fit: contain; display: block;
 }
 .hero-video-ph {
   position: absolute; inset: 0;
@@ -788,9 +787,9 @@ footer a:hover { color: var(--red); }
 @media (max-width: 768px) {
   /* Hero: video stays fullscreen, split stacks below video naturally */
   .hero-section { height: auto; min-height: 0; }
-  .hero-video-wrap { height: 50vh; min-height: 250px; }
+  .hero-video-wrap { height: auto; min-height: 0; }
   .hero-video-ph { position: absolute; inset: 0; }
-  .hero-video { position: absolute; inset: 0; }
+  .hero-video { width: 100%; display: block; }
   .hero-video-overlay { position: absolute; inset: 0; }
   .hero-split {
     position: relative;
