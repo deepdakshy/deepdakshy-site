@@ -132,7 +132,7 @@ video { display: block; }
   position: relative; width: 100%; background: #000;
 }
 .hero-video {
-  width: 100%; max-height: calc(100vh - 48px - 200px); object-fit: contain; display: block;
+  width: 100%; display: block;
 }
 .hero-video-ph {
   position: absolute; inset: 0;
