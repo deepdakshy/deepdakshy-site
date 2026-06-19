@@ -54,7 +54,7 @@ function buildCard(p, isVertical) {
     </div>`;
 
   card.addEventListener('click', () => {
-    openVideoModal(card.dataset.vimeo, card.dataset.youtube, card);
+    openVideoModal(card.dataset.vimeo, card.dataset.youtube, card.dataset.stats, card.dataset.writeup);
   });
 
   return card;
@@ -256,11 +256,23 @@ async function loadSettings() {
 
   // Commercial showreel
   const commReel = document.querySelector('.art-intro-reel-embed .reel-wrap');
+
+  // Hero loop video — load from Sanity if URL provided
+  const heroLoop = document.getElementById('hero-loop');
+  if (heroLoop && settings.heroVideoUrl) {
+    heroLoop.querySelector('source')?.remove();
+    const source = document.createElement('source');
+    source.src = settings.heroVideoUrl;
+    source.type = 'video/mp4';
+    heroLoop.appendChild(source);
+    heroLoop.load();
+  }
+
   if (commReel && (settings.commercialShowreelYoutube || settings.commercialShowreelVimeo)) {
     const id  = settings.commercialShowreelYoutube;
     const vid = settings.commercialShowreelVimeo;
     const src = id
-      ? `https://www.youtube.com/embed/${id}`
+      ? `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3`
       : `https://player.vimeo.com/video/${vid}?title=0&byline=0&portrait=0`;
     commReel.innerHTML = `<iframe src="${src}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
   }
@@ -269,7 +281,7 @@ async function loadSettings() {
   const vReelWrap = document.querySelector('#vertical-showreel .reel-wrap');
   const vReelSection = document.getElementById('vertical-showreel');
   if (vReelWrap && settings.verticalShowreelYoutube) {
-    vReelWrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${settings.verticalShowreelYoutube}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+    vReelWrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${settings.verticalShowreelYoutube}?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
     if (vReelSection) vReelSection.style.display = 'block';
   }
 
@@ -279,7 +291,7 @@ async function loadSettings() {
     const id  = settings.artShowreelYoutube;
     const vid = settings.artShowreelVimeo;
     const src = id
-      ? `https://www.youtube.com/embed/${id}`
+      ? `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3`
       : `https://player.vimeo.com/video/${vid}?title=0&byline=0&portrait=0`;
     artReel.innerHTML = `<iframe src="${src}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
   }

@@ -134,8 +134,10 @@ function openFilm(card) {
       $trailerHero.innerHTML = `<div class="reel-wrap"><iframe src="https://player.vimeo.com/video/${d.vimeo}?title=0&byline=0&portrait=0"
         allow="autoplay; fullscreen" allowfullscreen></iframe></div>`;
     } else if (d.youtube) {
-      $trailerHero.innerHTML = `<div class="reel-wrap"><iframe src="https://www.youtube.com/embed/${d.youtube}"
+      $trailerHero.innerHTML = `<div class="reel-wrap"><iframe src="https://www.youtube.com/embed/${d.youtube}?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+    } else if (d.cover) {
+      $trailerHero.innerHTML = `<img src="${d.cover}" alt="${d.title || ''}">`;
     } else {
       $trailerHero.innerHTML = `<div class="reel-ph">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -156,7 +158,6 @@ function openFilm(card) {
     images.forEach((src, i) => {
       const div = document.createElement('div');
       div.className = 'overlay-img-item';
-      div.dataset.lb = src;
       div.innerHTML = `<img src="${src}" alt="Still ${i+1}">`;
       $imgs.appendChild(div);
     });
@@ -168,23 +169,27 @@ function openFilm(card) {
 
   // Write-up
   const $write = $overlay.querySelector('.overlay-write');
-  $write.innerHTML = d.writeup
-    ? d.writeup.split('||').map(p => `<p>${p.trim()}</p>`).join('')
-    : '<p>Write-up coming soon.</p>';
+  if ($write) {
+    $write.innerHTML = d.writeup
+      ? d.writeup.split('||').map(p => `<p>${p.trim()}</p>`).join('')
+      : '<p>Write-up coming soon.</p>';
+  }
 
   // Credits
   const $cred = $overlay.querySelector('.overlay-credits');
-  $cred.innerHTML = `<p class="overlay-credits-label">Credits</p>`;
-  [
-    { label: 'Director',       val: d.director },
-    { label: 'Cinematography', val: d.dp        },
-    { label: 'Runtime',        val: d.runtime   },
-    { label: 'Camera',         val: d.camera    },
-    { label: 'Screened',       val: d.festival  },
-  ].forEach(cr => {
-    if (!cr.val) return;
-    $cred.innerHTML += `<div class="credit-item"><p class="credit-sub">${cr.label}</p>${cr.val}</div>`;
-  });
+  if ($cred) {
+    $cred.innerHTML = `<p class="overlay-credits-label">Credits</p>`;
+    [
+      { label: 'Director',       val: d.director },
+      { label: 'Cinematography', val: d.dp        },
+      { label: 'Runtime',        val: d.runtime   },
+      { label: 'Camera',         val: d.camera    },
+      { label: 'Screened',       val: d.festival  },
+    ].forEach(cr => {
+      if (!cr.val) return;
+      $cred.innerHTML += `<div class="credit-item"><p class="credit-sub">${cr.label}</p>${cr.val}</div>`;
+    });
+  }
 
   // Trailer — now shown in hero position, clear legacy container
   const $trailer = $overlay.querySelector('.overlay-trailer');
@@ -217,33 +222,11 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeFilm(); closeLightbox(); closeVideoModal(); }
 });
 
-// ── LIGHTBOX ──────────────────────────────────────────────────────────────
-const $lb    = document.getElementById('lightbox');
-const $lbImg = $lb?.querySelector('img');
-let lbSrcs = [], lbIdx = 0;
-
-function initLightbox() {
-  lbSrcs = [];
-  document.querySelectorAll('[data-lb]').forEach((el, i) => {
-    lbSrcs.push(el.dataset.lb);
-    el.onclick = () => { lbIdx = i; openLb(); };
-  });
-}
-function openLb() {
-  if (!$lb || !$lbImg) return;
-  $lbImg.src = lbSrcs[lbIdx];
-  $lb.classList.add('open');
-}
-function closeLightbox() { $lb?.classList.remove('open'); }
-function lbStep(d) {
-  lbIdx = (lbIdx + d + lbSrcs.length) % lbSrcs.length;
-  if ($lbImg) $lbImg.src = lbSrcs[lbIdx];
-}
-document.getElementById('lb-close')?.addEventListener('click', closeLightbox);
-document.getElementById('lb-prev')?.addEventListener('click',  () => lbStep(-1));
-document.getElementById('lb-next')?.addEventListener('click',  () => lbStep(1));
-$lb?.addEventListener('click', e => { if (e.target === $lb) closeLightbox(); });
-initLightbox();
+// ── LIGHTBOX (disabled) ──────────────────────────────────────────────────
+function initLightbox() { /* disabled — stills are view-only */ }
+function closeLightbox() {}
+function openLb() {}
+function lbStep() {}
 
 // ── CONTACT FORM ──────────────────────────────────────────────────────────
 const $form = document.getElementById('contact-form');
