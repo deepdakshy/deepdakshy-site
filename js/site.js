@@ -34,12 +34,30 @@
       m[1] + '-' + m[2] + '.' + m[3] + '?w=' + (width || 1200) + '&auto=format&fit=max';
   }
 
-  function ytThumb(id) { return id ? 'https://i.ytimg.com/vi/' + encodeURIComponent(id) + '/maxresdefault.jpg' : null; }
+  function ytThumb(id) { id = youtubeId(id); return id ? 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg' : null; }
+
+  // Accept a bare ID or any pasted link/share string from Sanity.
+  function vimeoParts(v) {
+    if (!v) return null;
+    var s = String(v).trim();
+    var m = s.match(/(\d{6,})(?:\/([0-9a-f]{6,}))?/i);
+    if (!m) return null;
+    var hash = m[2] || (s.match(/[?&]h=([0-9a-f]+)/i) || [])[1];
+    return { id: m[1], hash: hash || '' };
+  }
+  function youtubeId(v) {
+    if (!v) return null;
+    var s = String(v).trim();
+    var m = s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/) || s.match(/^([\w-]{11})/);
+    return m ? m[1] : null;
+  }
 
   function embedUrl(item, autoplay) {
     var a = autoplay ? 1 : 0;
-    if (item.youtubeId) return 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(item.youtubeId) + '?rel=0&modestbranding=1&playsinline=1&autoplay=' + a;
-    if (item.vimeoId) return 'https://player.vimeo.com/video/' + encodeURIComponent(item.vimeoId) + '?title=0&byline=0&portrait=0&dnt=1&autoplay=' + a;
+    var yt = youtubeId(item.youtubeId);
+    if (yt) return 'https://www.youtube-nocookie.com/embed/' + yt + '?rel=0&modestbranding=1&playsinline=1&autoplay=' + a;
+    var vm = vimeoParts(item.vimeoId);
+    if (vm) return 'https://player.vimeo.com/video/' + vm.id + '?' + (vm.hash ? 'h=' + vm.hash + '&' : '') + 'title=0&byline=0&portrait=0&dnt=1&autoplay=' + a;
     return null;
   }
 
@@ -83,6 +101,7 @@
     grid.classList.remove('skeleton');
     var items = opts.items || [];
     var open = false;
+    var cap = opts.cap || CAP;
 
     if (count) count.textContent = items.length ? pad2(items.length) : '';
     if (!items.length) {
@@ -92,14 +111,14 @@
     }
 
     function draw() {
-      var shown = open ? items : items.slice(0, CAP);
+      var shown = open ? items : items.slice(0, cap);
       grid.innerHTML = shown.map(opts.card).join('');
       qa('.card', grid).forEach(function (el, i) {
         el.addEventListener('click', function () { opts.onOpen(shown[i]); });
       });
       if (btn) {
-        btn.hidden = items.length <= CAP;
-        btn.textContent = open ? 'SHOW LESS −' : 'SHOW MORE +' + (items.length - CAP);
+        btn.hidden = items.length <= cap;
+        btn.textContent = open ? 'SHOW LESS −' : 'SHOW MORE +' + (items.length - cap);
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       }
     }
@@ -220,7 +239,7 @@
         function thumbs(p, w) {
           var own = imageUrl(p.thumbnail, w);
           if (own) return { thumb: own };
-          if (p.youtubeId) return { thumb: ytThumb(p.youtubeId), fallback: 'https://i.ytimg.com/vi/' + encodeURIComponent(p.youtubeId) + '/hqdefault.jpg' };
+          if (p.youtubeId) return { thumb: ytThumb(p.youtubeId), fallback: 'https://i.ytimg.com/vi/' + youtubeId(p.youtubeId) + '/hqdefault.jpg' };
           return {};
         }
 
@@ -250,13 +269,13 @@
     sanity('*[_type == "film"] | order(order asc){_id, title, type, year, role, format, festival, director, dp, runtime, camera, vimeoId, youtubeId, cover, stills, writeup}')
       .then(function (list) {
         renderList({
-          grid: '#film-grid', button: '#film-more', count: '#film-count', items: list || [],
+          grid: '#film-grid', button: '#film-more', count: '#film-count', items: list || [], cap: 10,
           emptyText: 'Films coming soon.',
           card: function (f) {
             var thumb = imageUrl(f.cover, 1200) || ytThumb(f.youtubeId);
             return cardHTML(f, {
               thumb: thumb,
-              fallback: !imageUrl(f.cover) && f.youtubeId ? 'https://i.ytimg.com/vi/' + encodeURIComponent(f.youtubeId) + '/hqdefault.jpg' : null,
+              fallback: !imageUrl(f.cover) && f.youtubeId ? 'https://i.ytimg.com/vi/' + youtubeId(f.youtubeId) + '/hqdefault.jpg' : null,
               sub: join([f.type, f.role, f.year]),
               tag: f.festival
             });
