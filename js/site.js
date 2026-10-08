@@ -145,7 +145,7 @@
     if (!modal) return;
     lastFocus = document.activeElement;
     var player = q('.modal__player', modal);
-    var src = embedUrl(data, true);
+    var src = embedUrl(data, data.autoplay !== false);
     player.className = 'modal__player' + (data.vertical ? ' modal__player--v' : '');
     player.innerHTML = src
       ? '<iframe src="' + esc(src) + '" title="' + esc(data.title) + '" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>'
@@ -282,7 +282,7 @@
           },
           onOpen: function (f) {
             openModal({
-              title: f.title, youtubeId: f.youtubeId, vimeoId: f.vimeoId,
+              title: f.title, youtubeId: f.youtubeId, vimeoId: f.vimeoId, autoplay: false,
               facts: [join([f.type, f.role, f.year]), f.runtime],
               chips: [f.festival, f.director && 'Dir. ' + f.director, f.dp && 'DP ' + f.dp, f.camera],
               writeup: f.writeup,
@@ -293,6 +293,22 @@
         });
       })
       .catch(function () { loadFailed('#film-grid'); });
+  }
+
+  // ── Mobile menu ────────────────────────────────────────
+  var navEl = q('.nav'), toggle = q('.nav__toggle');
+  function setMenu(open) {
+    if (!navEl || !toggle) return;
+    navEl.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('no-scroll', open);
+  }
+  if (toggle) {
+    toggle.addEventListener('click', function () { setMenu(!navEl.classList.contains('is-open')); });
+    qa('.nav__links a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+    window.addEventListener('resize', function () { if (window.innerWidth >= 900) setMenu(false); });
   }
 
   qa('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
