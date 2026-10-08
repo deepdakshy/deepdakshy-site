@@ -1,171 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Deep Dakshy — Creative Producer · Film Director · Berlin</title>
-  <meta name="description" content="Deep Dakshy is a Creative Producer and Film Director based in Berlin. Multi-market campaigns across 7 European markets, independent short films, cinematography. Also known as De3p."/>
-  <meta name="keywords" content="Deep Dakshy, De3p, Creative Producer Berlin, Film Director Berlin, Cinematographer Berlin, Babbel, paid social production, localisation"/>
-  <meta name="author" content="Deep Dakshy"/>
-  <link rel="canonical" href="https://deepdakshy.com/"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Deep Dakshy — Creative Producer · Film Director · Berlin"/>
-  <meta property="og:url" content="https://deepdakshy.com/"/>
-  <meta property="og:description" content="Deep Dakshy is a Creative Producer and Film Director based in Berlin. Multi-market campaigns, independent short films, cinematography."/>
-  <meta property="og:image" content="https://deepdakshy.com/images/og-image.jpg"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Deep Dakshy — Creative Producer · Film Director · Berlin"/>
-  <meta name="twitter:description" content="Creative Producer and Film Director based in Berlin. Campaigns, short films, cinematography."/>
-  <meta name="twitter:image" content="https://deepdakshy.com/images/og-image.jpg"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deep Dakshy — Cinematographer · Director · Creative Producer · Berlin</title>
+  <meta name="description" content="Deep Dakshy is a cinematographer, director and creative producer based in Berlin. Commercial campaigns across European markets and independent short films.">
+  <meta name="author" content="Deep Dakshy">
+  <meta name="theme-color" content="#000000">
+  <link rel="canonical" href="https://deepdakshy.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Deep Dakshy">
+  <meta property="og:title" content="Deep Dakshy — Cinematographer · Director · Creative Producer">
+  <meta property="og:description" content="Commercial campaigns and independent films. Berlin / Kolkata.">
+  <meta property="og:url" content="https://deepdakshy.com/">
+  <meta property="og:image" content="https://deepdakshy.com/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Deep Dakshy — Cinematographer · Director · Creative Producer">
+  <meta name="twitter:description" content="Commercial campaigns and independent films. Berlin / Kolkata.">
+  <meta name="twitter:image" content="https://deepdakshy.com/images/og-image.jpg">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Person","name":"Deep Dakshy","alternateName":"De3p","url":"https://deepdakshy.com","sameAs":["https://www.instagram.com/de3pdakshy/","https://www.linkedin.com/in/deep-dakshy-a23316113/"],"jobTitle":"Creative Producer, Film Director","worksFor":{"@type":"Organization","name":"Babbel GmbH"},"address":{"@type":"PostalAddress","addressLocality":"Berlin","addressCountry":"DE"},"alumniOf":{"@type":"EducationalOrganization","name":"MET Film School"}}
+  {"@context":"https://schema.org","@type":"Person","name":"Deep Dakshy","url":"https://deepdakshy.com","sameAs":["https://www.instagram.com/de3pdakshy/","https://www.linkedin.com/in/deep-dakshy-a23316113/"],"jobTitle":["Cinematographer","Director","Creative Producer"],"address":{"@type":"PostalAddress","addressLocality":"Berlin","addressCountry":"DE"},"alumniOf":{"@type":"EducationalOrganization","name":"MET Film School"}}
   </script>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-  <link rel="stylesheet" href="css/style-red.css"/>
 </head>
-<body>
+<body data-page="home">
+<a class="skip" href="#main">Skip to content</a>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<header class="hero">
+  <video id="hero-video" class="hero__media" src="images/loop.mp4" poster="images/hero-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  <div class="hero__shade"></div>
+  <div class="hero__fade"></div>
 
-<nav id="nav">
-  <a href="index.html" class="nav-logo">Deep Dakshy</a>
-  <ul class="nav-links">
-    <li><a href="commercial.html">Commercials</a></li>
-    <li><a href="art.html">Art & Films</a></li>
-    <li><a href="cv.html">CV</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- ═══ HERO — fullscreen video, COMMERCIAL | ART overlaid ══════════════ -->
-<section class="hero-section">
-
-  <!-- Video fills the section, behind everything -->
-  <div class="hero-video-wrap">
-    <video id="hero-loop" class="hero-video" autoplay muted loop playsinline>
-      <source src="images/loop.mp4" type="video/mp4">
-    </video>
-    <div class="hero-video-ph"></div>
-    <div class="hero-video-overlay"></div>
-  </div>
-
-  <!-- COMMERCIAL | ART split — sits on top of video -->
-  <div class="hero-split">
-    <a href="commercial.html" class="hero-item">
-      <div class="hero-item-inner">
-        <div class="hero-label">Commercials</div>
-        <div class="hero-desc">Brand · Campaign · Content</div>
-        <div class="hero-enter">Enter &nbsp;→</div>
-      </div>
-    </a>
-    <div class="hero-divider"></div>
-    <a href="art.html" class="hero-item">
-      <div class="hero-item-inner">
-        <div class="hero-label">Art & Films</div>
-        <div class="hero-desc">Film · Story · Image</div>
-        <div class="hero-enter">Enter &nbsp;→</div>
-      </div>
-    </a>
-  </div>
-
-</section>
-
-<!-- ═══ ABOUT ════════════════════════════════════════════════════════════ -->
-<section class="landing-about">
-  <div class="landing-about-inner">
-
-    <div class="landing-about-photo">
-      <img src="images/candid.webp" alt="Deep Dakshy">
+  <nav class="nav nav--overlay" aria-label="Main">
+    <a class="nav__mark" href="index.html" aria-label="Deep Dakshy, home">DD</a>
+    <div class="nav__links">
+      <a href="commercial.html">COMMERCIALS</a>
+      <a href="art.html">ART &amp; FILMS</a>
+      <a href="about.html">ABOUT</a>
     </div>
+  </nav>
 
-    <div class="landing-about-text-wrap">
-      <div class="landing-about-label eyebrow">// about.txt</div>
-      <div class="landing-about-body">
-        <p>Born in Kolkata. Based in Berlin. Working everywhere in between.</p>
-        <p>I'm a cinematographer, director and creative producer. I've shot and directed five films, run paid social campaigns across eight European markets, and started out doing both photojournalism and graphic design before either of those felt like enough.</p>
-        <p>I make films because the camera lets me capture what goes unsaid — a feeling that never found words, a moment that passed before anyone noticed. If one person leaves and calls someone they love, or sits quietly and feels grateful to be alive, that's enough. That's the whole point.</p>
-        <div class="landing-about-links">
-          <a href="commercial.html" class="landing-about-link">Commercials →</a>
-          <a href="art.html" class="landing-about-link">Art & Films →</a>
-        </div>
-      </div>
+  <div class="hero__body">
+    <span class="t-label t-muted">Berlin / Kolkata</span>
+    <h1 class="t-display hero__name">DEEP<br class="br-m"> DAKSHY</h1>
+    <div class="doors">
+      <a class="door" href="commercial.html">
+        <span><span class="door__num">01</span><span class="door__name">COMMERCIALS</span></span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E74C3C" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="door" href="art.html">
+        <span><span class="door__num">02</span><span class="door__name">ART &amp; FILMS</span></span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E74C3C" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
-
+    <span class="t-label scroll-cue" aria-hidden="true">Scroll ↓</span>
   </div>
-</section>
+</header>
 
-<!-- ═══ CONTACT ══════════════════════════════════════════════════════════ -->
-<div class="contact-section" id="contact">
-  <div class="contact-left">
-    <h2>Let's<br>Work.</h2>
-    <div class="contact-links" style="margin-top:40px;">
-      <a href="mailto:deepdakshyde@gmail.com" class="contact-link">deepdakshyde@gmail.com</a>
-      <a href="tel:+4917683429286" class="contact-link">+49 176 834 29286</a>
-      <a href="https://www.instagram.com/de3pdakshy/" target="_blank" class="contact-link">@de3pdakshy ↗</a>
-      <a href="https://www.linkedin.com/in/deep-dakshy-a23316113/" target="_blank" class="contact-link">LinkedIn ↗</a>
+<main id="main">
+  <section class="intro" aria-labelledby="about-h">
+    <div class="intro__text">
+      <h2 id="about-h" class="t-label t-red" style="margin:0">About</h2>
+      <p class="intro__statement">CINEMATOGRAPHER, DIRECTOR &amp; CREATIVE PRODUCER.<span class="intro__where">BORN IN KOLKATA · WORKING OUT OF BERLIN</span></p>
+      <figure class="intro__figure intro__figure--mobile">
+        <img class="duotone" src="images/candid.webp" alt="Deep Dakshy operating a cinema camera" style="object-position: 62% 40%">
+        <div class="duotone-tint"></div>
+      </figure>
+      <p class="intro__copy">I make films to catch what goes unsaid. Commercially, I run campaigns across European markets. The two worlds feed each other.</p>
+      <div class="stats">
+        <div class="stat"><span class="stat__n">5</span><span class="stat__l">SHORT FILMS</span></div>
+        <div class="stat"><span class="stat__n">34</span><span class="stat__l">FESTIVALS</span></div>
+        <div class="stat"><span class="stat__n">8</span><span class="stat__l">MARKETS</span></div>
+      </div>
+      <a class="btn-red" href="about.html" style="align-self:flex-start">FULL STORY + CV
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <figure class="intro__figure intro__figure--desktop" aria-hidden="true">
+      <img class="duotone" src="images/candid.webp" alt="" style="object-position: 60% 35%">
+      <div class="duotone-tint"></div>
+    </figure>
+  </section>
+</main>
+
+<footer class="footer" id="contact">
+  <h2 class="t-display footer__sign">LET’S WORK.</h2>
+  <div class="footer__row">
+    <span class="t-label t-red">Available for projects</span>
+    <a class="footer__email" href="mailto:deepdakshyde@gmail.com" data-email-text>DEEPDAKSHYDE@GMAIL.COM</a>
+    <div class="footer__links">
+      <div><a class="social" href="https://www.instagram.com/de3pdakshy/" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a><a class="social" href="https://www.linkedin.com/in/deep-dakshy-a23316113/" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.6h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.6h-4v-4.96c0-1.18-.02-2.7-1.7-2.7-1.7 0-1.96 1.26-1.96 2.6v5.06h-4z"/></svg></a></div>
+      <span class="t-red">● BERLIN <span data-year>2026</span></span>
     </div>
   </div>
-  <div class="contact-right">
-    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" id="contact-form">
-      <input type="hidden" name="bot-field"/>
-      <input type="hidden" name="form-name" value="contact"/>
-      <div class="cf-row">
-        <div class="cf-field">
-          <label class="cf-label" for="cf-name">Name</label>
-          <input class="cf-input" type="text" id="cf-name" name="name" placeholder="Your name" required/>
-        </div>
-        <div class="cf-field">
-          <label class="cf-label" for="cf-email">Email</label>
-          <input class="cf-input" type="email" id="cf-email" name="email" placeholder="your@email.com" required/>
-        </div>
-      </div>
-      <div class="cf-field">
-        <label class="cf-label" for="cf-subject">What's this about?</label>
-        <select class="cf-input cf-select" id="cf-subject" name="subject">
-          <option value="">Select one</option>
-          <option value="Commercial project">Commercial project</option>
-          <option value="Film collaboration">Film collaboration</option>
-          <option value="DP / Camera work">DP / Camera work</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      <div class="cf-field">
-        <label class="cf-label" for="cf-message">Message</label>
-        <textarea class="cf-input cf-textarea" id="cf-message" name="message" placeholder="Tell me about the project..." required></textarea>
-      </div>
-      <button type="submit" class="cf-submit" id="cf-btn">
-        <span id="cf-btn-text">Send Message</span>
-        <span id="cf-btn-arrow"> →</span>
-      </button>
-      <p class="cf-success" id="cf-success" style="display:none;">Message sent — I'll be in touch.</p>
-    </form>
-  </div>
-</div>
-
-<footer>
-  <span>© 2026 Deep Dakshy</span>
-  <span>Berlin</span>
-  <a href="https://deepdakshy.com">deepdakshy.com</a>
 </footer>
 
-<div id="video-modal">
-  <div class="vm-backdrop"></div>
-  <div class="vm-box">
-    <button class="vm-close">Close ✕</button>
-    <div class="vm-embed"></div>
-    <div class="vm-info"></div>
-  </div>
-</div>
-
-<div id="lightbox">
-  <span id="lb-close">Close ✕</span>
-  <span id="lb-prev">← Prev</span>
-  <img src="" alt=""/>
-  <span id="lb-next">Next →</span>
-</div>
-
-<script src="js/main.js"></script>
-<script src="js/sanity.js"></script>
+<script src="js/site.js" defer></script>
 </body>
 </html>
