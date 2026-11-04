@@ -326,3 +326,36 @@ html, body { overflow-x: clip; }
   .hero__body { flex: 1; }
   .scroll-cue { margin-top: auto; padding-top: 24px; }
 }
+
+/* ── /hi link page (QR on business cards) — fits one phone screen ── */
+.hi__wrap { max-width: 520px; margin: 0 auto; padding: 0 var(--pad); height: 100vh; height: 100svh; min-height: 520px; display: flex; flex-direction: column; }
+.hi__top { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
+.hi__head { padding-top: clamp(8px, 3vh, 32px); display: flex; flex-direction: column; gap: 8px; }
+.hi__head > .t-label { display: none; }
+.hi__name { font-size: clamp(44px, 14vw, 76px); }
+.hi__role { margin: 4px 0 0; font-weight: 700; font-stretch: 125%; font-size: clamp(9.5px, 3vw, 11.5px); letter-spacing: .12em; color: var(--text-2); }
+.hi__save { margin-top: clamp(10px, 2.2vh, 20px); width: 100%; padding: 15px 18px; font-size: 14px; }
+.hi__latest { padding-top: clamp(16px, 3.4vh, 32px); }
+.hi__label { margin: 0 0 10px; color: var(--muted); }
+.hi .grid-h, .hi__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.hi .card { gap: 8px; }
+.hi .card__title { font-size: 12px; line-height: 1.15; }
+.hi .card__meta { flex-direction: column; gap: 3px; }
+.hi .card__sub { font-size: 9px; }
+.hi .card__play { width: 12px; height: 12px; right: 8px; bottom: 8px; }
+.hi__links { margin-top: clamp(16px, 3.4vh, 32px); border-top: 1px solid var(--line); }
+.hi__link { display: flex; justify-content: space-between; align-items: center; min-height: 44px; padding: 0; border-bottom: 1px solid var(--line); font-weight: 800; font-stretch: 125%; font-size: 15px; letter-spacing: .04em; }
+.hi__link svg { flex: none; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+@media (hover: hover) and (pointer: fine) { .hi__link:hover { color: #fff; } .hi__link:hover svg { transform: translate(3px, -3px); } }
+.hi__foot { margin-top: auto; padding: 14px 0 16px; display: flex; justify-content: space-between; }
+.hi__foot .t-label { font-size: 9.5px; letter-spacing: .1em; }
+@media (min-width: 900px) { :root { --pad: 24px; } .hi__top { padding: 14px 0; } }
+@media (max-height: 780px) {
+  .hi__name { font-size: clamp(40px, 12.5vw, 64px); }
+  .hi__head { padding-top: 6px; gap: 6px; }
+  .hi__save { padding: 13px 18px; margin-top: 10px; }
+  .hi__latest, .hi__links { padding-top: 0; margin-top: 18px; }
+  .hi__latest { margin-top: 16px; }
+  .hi__link { min-height: 40px; font-size: 14px; }
+  .hi__foot { padding: 10px 0 12px; }
+}

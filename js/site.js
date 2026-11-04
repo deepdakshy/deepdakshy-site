@@ -295,6 +295,40 @@
       .catch(function () { loadFailed('#film-grid'); });
   }
 
+
+  function loadHi() {
+    var F = '{_type, _id, title, client, type, year, role, format, youtubeId, vimeoId, stats, description, writeup, thumbnail, cover, festival, runtime, director, dp, camera}';
+    sanity('{"pick": *[_type == "settings"][0].hiProjects[]->' + F + ', "latest": *[_type in ["commercial", "film"]] | order(year desc, _createdAt desc)[0...2]' + F + '}')
+      .then(function (r) {
+        var list = (r && r.pick && r.pick.length ? r.pick : (r && r.latest) || []).slice(0, 2);
+        renderList({
+          grid: '#hi-grid', items: list, cap: 2, emptyText: 'New work coming soon.',
+          card: function (p) {
+            var isFilm = p._type === 'film';
+            var own = imageUrl(isFilm ? p.cover : p.thumbnail, 1200);
+            var yt = youtubeId(p.youtubeId);
+            return cardHTML(p, {
+              thumb: own || (yt ? ytThumb(yt) : null),
+              fallback: !own && yt ? 'https://i.ytimg.com/vi/' + yt + '/hqdefault.jpg' : null,
+              sub: isFilm ? join([p.type, p.year]) : join([p.client || p.type, p.year])
+            });
+          },
+          onOpen: function (p) {
+            var isFilm = p._type === 'film';
+            openModal({
+              title: p.title, youtubeId: p.youtubeId, vimeoId: p.vimeoId, autoplay: !isFilm,
+              vertical: p.format === 'vertical',
+              facts: isFilm ? [join([p.type, p.role, p.year]), p.runtime] : [join([p.client, p.type, p.year]), p.role],
+              chips: isFilm ? [p.festival, p.director && 'Dir. ' + p.director, p.dp && 'DP ' + p.dp, p.camera] : (p.stats || []),
+              writeup: p.writeup || p.description,
+              cover: imageUrl(isFilm ? p.cover : p.thumbnail, 1600)
+            });
+          }
+        });
+      })
+      .catch(function () { loadFailed('#hi-grid'); });
+  }
+
   // ── Mobile menu ────────────────────────────────────────
   var navEl = q('.nav'), toggle = q('.nav__toggle');
   function setMenu(open) {
@@ -323,4 +357,5 @@
 
   if (page === 'commercial') loadCommercial();
   if (page === 'art') loadFilms();
+  if (page === 'hi') loadHi();
 })();
